@@ -10,11 +10,11 @@ import UIKit
 class ViewController: UIViewController {
 	
 	//MARK: - атрибуты
-	@IBOutlet weak var collectionView: UICollectionView!
-	@IBOutlet weak var modeValue: UISegmentedControl!
+	@IBOutlet weak var collectionView: UICollectionView! //основная вьюха
+	@IBOutlet weak var modeValue: UISegmentedControl! //переключатель режима
 	
-	var generator: NumbersGenerator?
-	var fetching = false
+	var generator: NumbersGenerator? //инстанция генератор чисел
+	var fetching = false //идет процесс генерации
 	
 	
 	
