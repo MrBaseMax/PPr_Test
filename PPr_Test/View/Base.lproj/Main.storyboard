@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Md4-Qt-zJe">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="QMb-y5-oMq">
+            <objects>
+                <viewController id="Md4-Qt-zJe" customClass="ViewController" customModule="PPr_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KC9-sG-kxK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sGG-Qf-9Rd">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="DxK-FI-ce3">
+                                    <size key="itemSize" width="174" height="71"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ReusableCell" id="85K-fk-XCj" customClass="CollectionViewCell" customModule="PPr_Test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="174" height="71"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" id="mck-zz-FVe">
+                                            <rect key="frame" x="0.0" y="0.0" width="174" height="71"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234567" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="1" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TCg-4y-Wfh">
+                                                    <rect key="frame" x="5" y="0.0" width="164" height="71"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="54"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="TCg-4y-Wfh" secondAttribute="bottom" id="6UC-xv-AZ3"/>
+                                                <constraint firstItem="TCg-4y-Wfh" firstAttribute="leading" secondItem="mck-zz-FVe" secondAttribute="leading" constant="5" id="JZP-GU-cWz"/>
+                                                <constraint firstItem="TCg-4y-Wfh" firstAttribute="top" secondItem="mck-zz-FVe" secondAttribute="top" id="hCD-ib-tXb"/>
+                                                <constraint firstAttribute="trailing" secondItem="TCg-4y-Wfh" secondAttribute="trailing" constant="5" id="xvy-m0-mvZ"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="174" height="71"/>
+                                        <connections>
+                                            <outlet property="label" destination="TCg-4y-Wfh" id="IOt-dx-sYk"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3UM-ID-vFv">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem id="b8w-fL-mB8">
+                                        <nil key="title"/>
+                                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Pc2-Jo-ZRF">
+                                            <rect key="frame" x="68" y="5.5" width="278" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="Простые"/>
+                                                <segment title="Фибоначчи"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="modeChanged:" destination="Md4-Qt-zJe" eventType="valueChanged" id="dly-aE-VBG"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="slq-wb-aTw"/>
+                        <constraints>
+                            <constraint firstItem="sGG-Qf-9Rd" firstAttribute="top" secondItem="3UM-ID-vFv" secondAttribute="bottom" id="9PX-1C-zdt"/>
+                            <constraint firstItem="sGG-Qf-9Rd" firstAttribute="leading" secondItem="slq-wb-aTw" secondAttribute="leading" id="LbU-8a-eyz"/>
+                            <constraint firstItem="3UM-ID-vFv" firstAttribute="leading" secondItem="slq-wb-aTw" secondAttribute="leading" id="TqP-JR-8Ca"/>
+                            <constraint firstAttribute="bottom" secondItem="sGG-Qf-9Rd" secondAttribute="bottom" id="brR-0D-xuY"/>
+                            <constraint firstItem="3UM-ID-vFv" firstAttribute="top" secondItem="slq-wb-aTw" secondAttribute="top" id="guI-4k-g9Y"/>
+                            <constraint firstItem="slq-wb-aTw" firstAttribute="trailing" secondItem="sGG-Qf-9Rd" secondAttribute="trailing" id="sKD-Ig-sAm"/>
+                            <constraint firstItem="3UM-ID-vFv" firstAttribute="trailing" secondItem="slq-wb-aTw" secondAttribute="trailing" id="xZa-tL-ph6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="sGG-Qf-9Rd" id="QpT-0y-dPy"/>
+                        <outlet property="modeValue" destination="Pc2-Jo-ZRF" id="sgJ-hW-Zmh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4K9-4E-b2T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1282.3660714285713" y="-2.8985507246376816"/>
+        </scene>
+    </scenes>
+</document>

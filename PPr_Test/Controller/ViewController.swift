@@ -1,0 +1,149 @@
+//
+//  ViewController.swift
+//  PPr_Test
+//
+//  Created by Макс on 23.08.2021.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+	
+	//MARK: - атрибуты
+	@IBOutlet weak var collectionView: UICollectionView!
+	@IBOutlet weak var modeValue: UISegmentedControl!
+	
+	var generator: NumbersGenerator?
+	var fetching = false
+	
+	
+	
+	//MARK: - методы
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		//регистрируем себя делегатом и источником данных
+		collectionView.dataSource = self
+		collectionView.delegate = self
+		
+		//подпишем метод перерисовки данных на событие изменения ориентации
+		NotificationCenter.default.addObserver(self, selector: #selector(ViewController.orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
+		
+		
+		do {
+			try tableInit() //инициализация
+		} catch {
+			print(error)
+		}
+	}
+	
+	
+	
+	@objc func orientationDidChange() { //перерисовка данных после изменения ориентации
+		collectionView.reloadData()
+	}
+	
+	
+	
+	//инициализация
+	func tableInit( ) throws {
+		
+		switch modeValue.selectedSegmentIndex {
+			case 0:
+				generator = PrimeNumbersGenerator()
+			case 1:
+				generator = FibonacciNumbersGenerator()
+			default: throw fatalError("Непонятный режим")
+		}
+		
+		
+		generator!.appendNextNumbers(K.initialBatchSize)
+		
+		collectionView.reloadData()
+		collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false) //актуально при переключении режима
+	}
+	
+	
+	
+	//переключение режима Простые числа <=> Числа Фибоначчи
+	@IBAction func modeChanged(_ sender: UISegmentedControl) {
+		do {
+			try tableInit() //инициализация
+		} catch {
+			print(error)
+		}
+	}
+	
+
+	
+	//
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let offsetY = scrollView.contentOffset.y //смещение верхнего края экрана
+		let contentHeight = scrollView.contentSize.height //общая высота контента
+		let frameHeight = scrollView.frame.height //высота рамки экрана
+		
+		//если смещение пытается сдвинуть экран за границу контента, запрашиваем новый контент
+		if offsetY > contentHeight - frameHeight {
+			if fetching == false {
+				fetching = true
+				
+				//асинхронная генерация новой пачки чисел
+				DispatchQueue.main.async {
+					self.generator!.appendNextNumbers(K.batchSize)
+					self.collectionView.reloadData()
+					self.fetching = false
+				}
+			}
+		}
+	}
+}
+
+
+
+//MARK: - Заполнение данными
+extension ViewController: UICollectionViewDataSource {
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		
+		return generator!.getNumbers().count
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.cellID, for: indexPath) as! CollectionViewCell
+		
+		
+		//числа Double, которые не выходят за диапазон Int, для красоты будем выводить без разделителя
+		if generator!.getNumbers()[indexPath.row] < Double( Int.max ) {
+			cell.label.text = String(Int( generator!.getNumbers()[indexPath.row] ))
+		} else {
+			cell.label.text = String( generator!.getNumbers()[indexPath.row] )
+		}
+		
+		
+		if indexPath.row / 2 % 2 != indexPath.row % 2 {
+			//в нечетных строках красим ячейки с четными индексами, в четных - с нечетными
+			cell.backgroundColor = #colorLiteral(red: 0.9058823529, green: 0.9058823529, blue: 0.9098039216, alpha: 1)
+		} else {
+			cell.backgroundColor = UIColor.white //иначе берет цвет с переиспользуемых ячеек
+		}
+		
+		return cell
+	}
+	
+	
+}
+
+
+
+//MARK: - Верстка
+extension ViewController: UICollectionViewDelegateFlowLayout{
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+		return 0
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+		return 0
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return CGSize(width: collectionView.bounds.width/2, height: 60)
+	}
+}
