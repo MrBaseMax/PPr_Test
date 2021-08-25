@@ -24,6 +24,8 @@ class NumbersGenerator {
 	
 	func getNextNumber() -> Double { return 0 }
 	
-	func getNumbers() -> [Double] { return numbers }
+	func getNumbersCount() -> Int { return numbers.count }
 	
+	func getNumber( by index: Int ) -> Double { return numbers[index] }
+
 }

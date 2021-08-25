@@ -103,7 +103,7 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
-		return generator!.getNumbers().count
+		return generator!.getNumbersCount()
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -111,10 +111,11 @@ extension ViewController: UICollectionViewDataSource {
 		
 		
 		//числа Double, которые не выходят за диапазон Int, для красоты будем выводить без разделителя
-		if generator!.getNumbers()[indexPath.row] < Double( Int.max ) {
-			cell.label.text = String(Int( generator!.getNumbers()[indexPath.row] ))
+		let number = generator!.getNumber(by: indexPath.row)
+		if number < Double( Int.max ) {
+			cell.label.text = String(Int( number ))
 		} else {
-			cell.label.text = String( generator!.getNumbers()[indexPath.row] )
+			cell.label.text = String( number )
 		}
 		
 		
