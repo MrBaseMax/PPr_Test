@@ -121,7 +121,7 @@ extension ViewController: UICollectionViewDataSource {
 		
 		if indexPath.row / 2 % 2 != indexPath.row % 2 {
 			//в нечетных строках красим ячейки с четными индексами, в четных - с нечетными
-			cell.backgroundColor = #colorLiteral(red: 0.9058823529, green: 0.9058823529, blue: 0.9098039216, alpha: 1)
+			cell.backgroundColor = #colorLiteral(red: 0.7921568627, green: 0.9098039216, blue: 0.9921568627, alpha: 0.396789867)
 		} else {
 			cell.backgroundColor = UIColor.white //иначе берет цвет с переиспользуемых ячеек
 		}

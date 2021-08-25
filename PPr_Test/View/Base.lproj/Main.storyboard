@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -75,6 +76,7 @@
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="slq-wb-aTw"/>
+                        <color key="backgroundColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="sGG-Qf-9Rd" firstAttribute="top" secondItem="3UM-ID-vFv" secondAttribute="bottom" id="9PX-1C-zdt"/>
                             <constraint firstItem="sGG-Qf-9Rd" firstAttribute="leading" secondItem="slq-wb-aTw" secondAttribute="leading" id="LbU-8a-eyz"/>
@@ -95,4 +97,9 @@
             <point key="canvasLocation" x="1282.3660714285713" y="-2.8985507246376816"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
