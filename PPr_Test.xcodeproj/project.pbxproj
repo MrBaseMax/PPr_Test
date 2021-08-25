@@ -59,8 +59,8 @@
 		50A184AF26D59D9300337604 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				50A184B326D5A6E500337604 /* PrimeNumbersGenerator.swift */,
 				50A184B126D59E2500337604 /* NumbersGenerator.swift */,
+				50A184B326D5A6E500337604 /* PrimeNumbersGenerator.swift */,
 				50A184B526D5A95200337604 /* FibonacciNumbersGenerator.swift */,
 				50D2DBBD26D4326200694601 /* Constants.swift */,
 			);

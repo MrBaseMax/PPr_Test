@@ -16,7 +16,7 @@ class PrimeNumbersGenerator: NumbersGenerator {
 	}
 	
 	
-
+	
 	override func getNextNumber() -> Double {
 		var prime = numbers.last! + 1
 		
@@ -29,17 +29,18 @@ class PrimeNumbersGenerator: NumbersGenerator {
 	
 	
 	
-	private func isPrime( _ n: Int ) -> Bool{
+	// так себе алгоритм
+	private func isPrime( _ n: Int ) -> Bool {
 		
 		if n <= 1 { return false }
 		if n <= 3 { return true }
-		if n % 2 == 0 || n % 3 == 0 { return false }
 		
-		//нуу в этой ситуации мы просто наше к это самое мы уже здесь наши полномочия все. окончены
-		for i in stride(from: 5, to: Int(sqrt(Double(n))), by: 6){
-			if n % i == 0 || n % (i + 2) == 0 {
-				return false
-			}
+		
+		var i = 2
+		while i*i <= n {
+			if n % i == 0 { return false }
+			
+			i += 1
 		}
 		
 		return true
