@@ -29,7 +29,6 @@ class PrimeNumbersGenerator: NumbersGenerator {
 	
 	
 	
-
 	private func isPrime( _ n: Int ) -> Bool {
 		
 		if n <= 1 { return false }
