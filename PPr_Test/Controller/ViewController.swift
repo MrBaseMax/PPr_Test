@@ -63,7 +63,7 @@ class ViewController: UIViewController {
 			let generator = GeneratorFactory.getGenerator( mode ) {
 			
 			self.generator = generator
-			generator.appendNextNumbers(K.initialBatchSize)
+			generator.appendNextNumbers(K.initialRowsCount * columnsCount)
 
 			collectionView.reloadData()
 			collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false) //актуально при переключении режима

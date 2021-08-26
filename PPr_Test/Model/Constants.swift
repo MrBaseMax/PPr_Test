@@ -12,10 +12,9 @@ import UIKit
 struct K {
 	static let cellID = "ReusableCell"
 	static let cellHeight: CGFloat = 60
-//	static let columnsCount = 2
-	static let cellsLeftToStartFetching = 10
-	static let initialBatchSize = 61
-	static let batchSize = 20
+	static let cellsLeftToStartFetching = 20
+	static let initialRowsCount = 30
+	static let batchSize = 40
 	
 	struct segmentIndex {
 		static let prime     = 0
