@@ -73,7 +73,7 @@ class ViewController: UIViewController {
 		}
 	}
 	
-
+	
 	
 	//
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -87,11 +87,17 @@ class ViewController: UIViewController {
 				fetching = true
 				
 				//асинхронная генерация новой пачки чисел
-				DispatchQueue.main.async {
+				
+				
+				DispatchQueue.global(qos: .background).async {
 					self.generator!.appendNextNumbers(K.batchSize)
-					self.collectionView.reloadData()
-					self.fetching = false
+					
+					DispatchQueue.main.async {
+						self.collectionView.reloadData()
+						self.fetching = false
+					}
 				}
+				
 			}
 		}
 	}
