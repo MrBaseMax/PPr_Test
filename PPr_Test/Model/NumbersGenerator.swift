@@ -7,13 +7,12 @@
 
 import Foundation
 
-class NumbersGenerator {
+class NumbersGenerator: Generator {
 	
 	//MARK: - атрибуты
 	var numbers: [Double] = []
 	
 
-	
 	//MARK: - методы
 	func appendNextNumbers(_ count: Int) {
 		for _ in 1...count {

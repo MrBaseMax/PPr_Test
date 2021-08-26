@@ -10,14 +10,13 @@ import Foundation
 
 class FibonacciNumbersGenerator: NumbersGenerator {
 	
-	override init() {
-		super.init()
-		numbers = [0,1]
-	}
-	
-	
-	
 	override func getNextNumber() -> Double {
-		return numbers[numbers.count - 1] + numbers[numbers.count - 2]
+		if numbers.count == 0 {
+			return 0
+		} else if numbers.count == 1 {
+			return 1
+		} else {
+			return numbers[numbers.count - 1] + numbers[numbers.count - 2]
+		}
 	}
 }

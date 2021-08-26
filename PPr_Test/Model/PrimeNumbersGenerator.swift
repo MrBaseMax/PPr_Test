@@ -10,27 +10,23 @@ import Foundation
 
 class PrimeNumbersGenerator: NumbersGenerator {
 	
-	override init() {
-		super.init()
-		numbers = [2]
-	}
-	
-	
-	
 	override func getNextNumber() -> Double {
-		var prime = numbers.last! + 1
-		
-		while !isPrime( Int(prime) ) {
-			prime += 1
+		if let lastNumber = numbers.last {
+			
+			var nextPrime = lastNumber + 1
+			while !isPrime( Int(nextPrime) ) {
+				nextPrime += 1
+			}
+			
+			return nextPrime
+			
+		} else {
+			return 2
 		}
-		
-		return prime;
 	}
-	
 	
 	
 	private func isPrime( _ n: Int ) -> Bool {
-		
 		if n <= 1 { return false }
 		if n <= 3 { return true }
 		if n % 2 == 0 || n % 3 == 0 { return false }

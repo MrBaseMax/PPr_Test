@@ -34,7 +34,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="174" height="71"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234567" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="1" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TCg-4y-Wfh">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234567" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TCg-4y-Wfh">
                                                     <rect key="frame" x="5" y="0.0" width="164" height="71"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="54"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -61,16 +61,27 @@
                                     <navigationItem id="b8w-fL-mB8">
                                         <nil key="title"/>
                                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Pc2-Jo-ZRF">
-                                            <rect key="frame" x="68" y="5.5" width="278" height="33"/>
+                                            <rect key="frame" x="35" y="5.5" width="302" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Простые"/>
                                                 <segment title="Фибоначчи"/>
+                                                <segment title="Избыточные"/>
                                             </segments>
                                             <connections>
                                                 <action selector="modeChanged:" destination="Md4-Qt-zJe" eventType="valueChanged" id="dly-aE-VBG"/>
                                             </connections>
                                         </segmentedControl>
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="yVJ-K0-R1P">
+                                            <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="fBS-yd-DoK">
+                                                <rect key="frame" x="343" y="6.5" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="onTintColor" name="AccentColor"/>
+                                                <connections>
+                                                    <action selector="columnsCountChanged:" destination="Md4-Qt-zJe" eventType="valueChanged" id="Bn7-id-n9q"/>
+                                                </connections>
+                                            </switch>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -89,6 +100,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="sGG-Qf-9Rd" id="QpT-0y-dPy"/>
+                        <outlet property="columnsCountSwitch" destination="fBS-yd-DoK" id="Lol-oI-ceD"/>
                         <outlet property="modeValue" destination="Pc2-Jo-ZRF" id="sgJ-hW-Zmh"/>
                     </connections>
                 </viewController>

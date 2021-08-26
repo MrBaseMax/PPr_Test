@@ -12,15 +12,31 @@ class ViewController: UIViewController {
 	//MARK: - атрибуты
 	@IBOutlet weak var collectionView: UICollectionView! //основная вьюха
 	@IBOutlet weak var modeValue: UISegmentedControl! //переключатель режима
+	@IBOutlet weak var columnsCountSwitch: UISwitch! //переключатель кол-ва колонок
 	
-	var generator: NumbersGenerator? //инстанция генератор чисел
+	var generator: Generator? //инстанция генератора чисел
 	var fetching = false //идет процесс генерации
+	var columnsCount = 2
+	
+	var mode: Mode? {
+		switch modeValue.selectedSegmentIndex {
+			case K.segmentIndex.prime:
+				return .prime
+			case K.segmentIndex.fibonacci:
+				return .fibonacci
+			case K.segmentIndex.abundant:
+				return .abundant
+			default:
+				fatalError("Режим не определен")
+		}
+	}
 	
 	
 	
 	//MARK: - методы
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		//регистрируем себя делегатом и источником данных
 		collectionView.dataSource = self
 		collectionView.delegate = self
@@ -28,12 +44,7 @@ class ViewController: UIViewController {
 		//подпишем метод перерисовки данных на событие изменения ориентации
 		NotificationCenter.default.addObserver(self, selector: #selector(ViewController.orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
 		
-		
-		do {
-			try tableInit() //инициализация
-		} catch {
-			print(error)
-		}
+		tableInit() //инициализация
 	}
 	
 	
@@ -45,34 +56,32 @@ class ViewController: UIViewController {
 	
 	
 	//инициализация
-	func tableInit( ) throws {
+	func tableInit() {
+		columnsCount = columnsCountSwitch.isOn ? 3 : 2
 		
-		switch modeValue.selectedSegmentIndex {
-			case 0:
-				generator = PrimeNumbersGenerator()
-			case 1:
-				generator = FibonacciNumbersGenerator()
-			default: throw fatalError("Непонятный режим")
+		if let mode = mode,
+			let generator = GeneratorFactory.getGenerator( mode ) {
+			
+			self.generator = generator
+			generator.appendNextNumbers(K.initialBatchSize)
+
+			collectionView.reloadData()
+			collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false) //актуально при переключении режима
 		}
-		
-		
-		generator!.appendNextNumbers(K.initialBatchSize)
-		
-		collectionView.reloadData()
-		collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false) //актуально при переключении режима
 	}
 	
 	
 	
 	//переключение режима Простые числа <=> Числа Фибоначчи
 	@IBAction func modeChanged(_ sender: UISegmentedControl) {
-		do {
-			try tableInit() //инициализация
-		} catch {
-			print(error)
-		}
+		tableInit()
 	}
 	
+	
+	//переключение количества колонок
+	@IBAction func columnsCountChanged(_ sender: UISwitch) {
+		tableInit()
+	}
 	
 	
 	//скролл
@@ -82,15 +91,15 @@ class ViewController: UIViewController {
 		let frameHeight = scrollView.frame.height //высота рамки экрана
 		
 		//если смещение пытается сдвинуть экран за границу контента, запрашиваем новый контент
-		if offsetY > contentHeight - frameHeight - K.cellHeight * CGFloat(K.leftCellsToStartFetching) {
-			if fetching == false {
+		if offsetY > contentHeight - frameHeight - K.cellHeight * CGFloat(K.cellsLeftToStartFetching) {
+			if !fetching {
 				fetching = true
 				
 				//асинхронная генерация новой пачки чисел в отдельном фоновом потоке
 				DispatchQueue.global(qos: .background).async {
-					self.generator!.appendNextNumbers(K.batchSize)
+					self.generator?.appendNextNumbers(K.batchSize)
 					
-					DispatchQueue.main.sync {
+					DispatchQueue.main.async {
 						self.collectionView.reloadData()
 						self.fetching = false
 					}
@@ -106,7 +115,7 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		
-		return generator!.getNumbersCount()
+		return generator?.getNumbersCount() ?? 0
 	}
 	
 	
@@ -114,21 +123,22 @@ extension ViewController: UICollectionViewDataSource {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.cellID, for: indexPath) as! CollectionViewCell
 		
 		//числа Double, которые не выходят за диапазон Int, для красоты будем выводить без разделителя
-		let number = generator!.getNumber(by: indexPath.item)
-		if number < Double( Int.max ) {
-			cell.label.text = String(Int( number ))
-		} else {
-			cell.label.text = String( number )
+		if let number = generator?.getNumber(by: indexPath.item) {
+			if number < Double( Int.max ) {
+				cell.label.text = String(Int( number ))
+			} else {
+				cell.label.text = String( number )
+			}
 		}
 		
 		
 		//шахматный порядок обеспечивается четностью суммы номера строки и номера столбца
-		if ( indexPath.item / Int(K.columnsCount) //номер строки
-				+ indexPath.item % Int(K.columnsCount) //номер столбца
+		if ( indexPath.item / Int(columnsCount) //номер строки
+			+ indexPath.item % Int(columnsCount) //номер столбца
 		) % 2 == 0 {
-			cell.backgroundColor = K.cellBgColor.even
+			cell.backgroundColor = K.cellBgColor.light
 		} else {
-			cell.backgroundColor = K.cellBgColor.odd
+			cell.backgroundColor = K.cellBgColor.dark
 		}
 		
 		
@@ -151,6 +161,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout{
 	
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: collectionView.bounds.width/CGFloat(K.columnsCount), height: K.cellHeight)
+		return CGSize(width: collectionView.bounds.width/CGFloat(columnsCount), height: K.cellHeight)
 	}
 }

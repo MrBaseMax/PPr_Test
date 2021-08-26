@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		507B0F1126D7D91E0022D88C /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507B0F1026D7D91E0022D88C /* Generator.swift */; };
+		507B0F1726D7E2670022D88C /* AbundantNumbersGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507B0F1626D7E2670022D88C /* AbundantNumbersGenerator.swift */; };
+		507B0F1A26D7E8A40022D88C /* GeneratorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507B0F1926D7E8A40022D88C /* GeneratorFactory.swift */; };
+		507B0F1C26D7E8D10022D88C /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507B0F1B26D7E8D10022D88C /* Mode.swift */; };
 		50A184B226D59E2500337604 /* NumbersGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A184B126D59E2500337604 /* NumbersGenerator.swift */; };
 		50A184B426D5A6E600337604 /* PrimeNumbersGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A184B326D5A6E500337604 /* PrimeNumbersGenerator.swift */; };
 		50A184B626D5A95200337604 /* FibonacciNumbersGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A184B526D5A95200337604 /* FibonacciNumbersGenerator.swift */; };
@@ -21,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		507B0F1026D7D91E0022D88C /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		507B0F1626D7E2670022D88C /* AbundantNumbersGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbundantNumbersGenerator.swift; sourceTree = "<group>"; };
+		507B0F1926D7E8A40022D88C /* GeneratorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorFactory.swift; sourceTree = "<group>"; };
+		507B0F1B26D7E8D10022D88C /* Mode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode.swift; sourceTree = "<group>"; };
 		50A184B126D59E2500337604 /* NumbersGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NumbersGenerator.swift; path = PPr_Test/Model/NumbersGenerator.swift; sourceTree = SOURCE_ROOT; };
 		50A184B326D5A6E500337604 /* PrimeNumbersGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeNumbersGenerator.swift; sourceTree = "<group>"; };
 		50A184B526D5A95200337604 /* FibonacciNumbersGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FibonacciNumbersGenerator.swift; sourceTree = "<group>"; };
@@ -31,7 +39,7 @@
 		50D2DBB026D41EB600694601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50D2DBB226D41EB900694601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50D2DBB526D41EB900694601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		50D2DBB726D41EB900694601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50D2DBB726D41EB900694601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PPr_Test/Info.plist; sourceTree = SOURCE_ROOT; };
 		50D2DBBD26D4326200694601 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		50D2DBC126D4460100694601 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -47,10 +55,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		50A184AE26D59D6B00337604 /* View */ = {
+		507B0F1826D7E7980022D88C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				50D2DBAF26D41EB600694601 /* Main.storyboard */,
+				50D2DBB226D41EB900694601 /* Assets.xcassets */,
+				50D2DBB426D41EB900694601 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		50A184AE26D59D6B00337604 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				50D2DBC126D4460100694601 /* CollectionViewCell.swift */,
 			);
 			path = View;
@@ -59,9 +76,13 @@
 		50A184AF26D59D9300337604 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				507B0F1026D7D91E0022D88C /* Generator.swift */,
+				507B0F1926D7E8A40022D88C /* GeneratorFactory.swift */,
 				50A184B126D59E2500337604 /* NumbersGenerator.swift */,
 				50A184B326D5A6E500337604 /* PrimeNumbersGenerator.swift */,
 				50A184B526D5A95200337604 /* FibonacciNumbersGenerator.swift */,
+				507B0F1626D7E2670022D88C /* AbundantNumbersGenerator.swift */,
+				507B0F1B26D7E8D10022D88C /* Mode.swift */,
 				50D2DBBD26D4326200694601 /* Constants.swift */,
 			);
 			path = Model;
@@ -94,13 +115,12 @@
 		50D2DBA826D41EB500694601 /* PPr_Test */ = {
 			isa = PBXGroup;
 			children = (
+				50D2DBA926D41EB500694601 /* AppDelegate.swift */,
+				50D2DBAB26D41EB600694601 /* SceneDelegate.swift */,
 				50A184AF26D59D9300337604 /* Model */,
 				50A184AE26D59D6B00337604 /* View */,
 				50A184B026D59D9900337604 /* Controller */,
-				50D2DBA926D41EB500694601 /* AppDelegate.swift */,
-				50D2DBAB26D41EB600694601 /* SceneDelegate.swift */,
-				50D2DBB226D41EB900694601 /* Assets.xcassets */,
-				50D2DBB426D41EB900694601 /* LaunchScreen.storyboard */,
+				507B0F1826D7E7980022D88C /* Resources */,
 				50D2DBB726D41EB900694601 /* Info.plist */,
 			);
 			path = PPr_Test;
@@ -176,12 +196,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507B0F1A26D7E8A40022D88C /* GeneratorFactory.swift in Sources */,
 				50A184B226D59E2500337604 /* NumbersGenerator.swift in Sources */,
+				507B0F1C26D7E8D10022D88C /* Mode.swift in Sources */,
 				50A184B426D5A6E600337604 /* PrimeNumbersGenerator.swift in Sources */,
 				50D2DBC226D4460100694601 /* CollectionViewCell.swift in Sources */,
 				50A184B626D5A95200337604 /* FibonacciNumbersGenerator.swift in Sources */,
 				50D2DBAE26D41EB600694601 /* ViewController.swift in Sources */,
+				507B0F1726D7E2670022D88C /* AbundantNumbersGenerator.swift in Sources */,
 				50D2DBAA26D41EB500694601 /* AppDelegate.swift in Sources */,
+				507B0F1126D7D91E0022D88C /* Generator.swift in Sources */,
 				50D2DBAC26D41EB600694601 /* SceneDelegate.swift in Sources */,
 				50D2DBBE26D4326200694601 /* Constants.swift in Sources */,
 			);
