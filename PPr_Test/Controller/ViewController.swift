@@ -74,8 +74,7 @@ class ViewController: UIViewController {
 	}
 	
 	
-	
-	//
+	//скролл
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let offsetY = scrollView.contentOffset.y //смещение верхнего края экрана
 		let contentHeight = scrollView.contentSize.height //общая высота контента
@@ -87,8 +86,6 @@ class ViewController: UIViewController {
 				fetching = true
 				
 				//асинхронная генерация новой пачки чисел
-				
-				
 				DispatchQueue.global(qos: .background).async {
 					self.generator!.appendNextNumbers(K.batchSize)
 					
