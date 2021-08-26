@@ -36,10 +36,9 @@ class AbundantNumbersGenerator: NumbersGenerator {
 		
 		for i in 1...Int(sqrt(Float(n))) {
 			if n % i == 0 {
-				if n / i == i {
-					sum = sum + i
-				} else {
-					sum = sum + i
+				sum = sum + i
+				
+				if n / i != i {
 					sum = sum + (n / i)
 				}
 			}

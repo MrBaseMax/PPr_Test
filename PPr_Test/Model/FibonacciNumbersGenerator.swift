@@ -11,7 +11,7 @@ import Foundation
 class FibonacciNumbersGenerator: NumbersGenerator {
 	
 	override func getNextNumber() -> Double {
-		if numbers.count == 0 {
+		if numbers.isEmpty {
 			return 0
 		} else if numbers.count == 1 {
 			return 1
