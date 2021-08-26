@@ -15,8 +15,8 @@ class ViewController: UIViewController {
 	@IBOutlet weak var columnsCountSwitch: UISwitch! //переключатель кол-ва колонок
 	
 	var generator: Generator? //инстанция генератора чисел
-	var fetching = false //идет процесс генерации
-	var columnsCount = 2
+	var fetching = false //генерация в процессе
+	var columnsCount = 2 //начальное кол-во колонок, актуализируется во viewDidLoad
 	
 	var mode: Mode? {
 		switch modeValue.selectedSegmentIndex {
@@ -97,7 +97,9 @@ class ViewController: UIViewController {
 				
 				//асинхронная генерация новой пачки чисел в отдельном фоновом потоке
 				DispatchQueue.global(qos: .background).async {
-					self.generator?.appendNextNumbers(K.batchSize)
+					if let generator = self.generator {
+						generator.appendNextNumbers(K.batchSize)
+					}
 					
 					DispatchQueue.main.async {
 						self.collectionView.reloadData()
