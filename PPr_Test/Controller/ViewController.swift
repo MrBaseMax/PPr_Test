@@ -74,6 +74,7 @@ class ViewController: UIViewController {
 	}
 	
 	
+	
 	//скролл
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let offsetY = scrollView.contentOffset.y //смещение верхнего края экрана
@@ -81,20 +82,19 @@ class ViewController: UIViewController {
 		let frameHeight = scrollView.frame.height //высота рамки экрана
 		
 		//если смещение пытается сдвинуть экран за границу контента, запрашиваем новый контент
-		if offsetY > contentHeight - frameHeight {
+		if offsetY > contentHeight - frameHeight - K.cellHeight * CGFloat(K.leftCellsToStartFetching) {
 			if fetching == false {
 				fetching = true
 				
-				//асинхронная генерация новой пачки чисел
+				//асинхронная генерация новой пачки чисел в отдельном фоновом потоке
 				DispatchQueue.global(qos: .background).async {
 					self.generator!.appendNextNumbers(K.batchSize)
 					
-					DispatchQueue.main.async {
+					DispatchQueue.main.sync {
 						self.collectionView.reloadData()
 						self.fetching = false
 					}
 				}
-				
 			}
 		}
 	}
@@ -109,12 +109,12 @@ extension ViewController: UICollectionViewDataSource {
 		return generator!.getNumbersCount()
 	}
 	
+	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.cellID, for: indexPath) as! CollectionViewCell
 		
-		
 		//числа Double, которые не выходят за диапазон Int, для красоты будем выводить без разделителя
-		let number = generator!.getNumber(by: indexPath.row)
+		let number = generator!.getNumber(by: indexPath.item)
 		if number < Double( Int.max ) {
 			cell.label.text = String(Int( number ))
 		} else {
@@ -122,17 +122,18 @@ extension ViewController: UICollectionViewDataSource {
 		}
 		
 		
-		if ( indexPath.row / 2 + indexPath.row ) % 2 != 0 {
-			//в нечетных строках красим ячейки с четными индексами, в четных - с нечетными
+		//шахматный порядок обеспечивается четностью суммы номера строки и номера столбца
+		if ( indexPath.item / Int(K.columnsCount) //номер строки
+				+ indexPath.item % Int(K.columnsCount) //номер столбца
+		) % 2 == 0 {
 			cell.backgroundColor = K.cellBgColor.even
 		} else {
-			cell.backgroundColor = K.cellBgColor.odd //иначе берет цвет с переиспользуемых ячеек
+			cell.backgroundColor = K.cellBgColor.odd
 		}
+		
 		
 		return cell
 	}
-	
-	
 }
 
 
@@ -143,11 +144,13 @@ extension ViewController: UICollectionViewDelegateFlowLayout{
 		return 0
 	}
 	
+	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 		return 0
 	}
 	
+	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: collectionView.bounds.width/2, height: 60)
+		return CGSize(width: collectionView.bounds.width/CGFloat(K.columnsCount), height: K.cellHeight)
 	}
 }
